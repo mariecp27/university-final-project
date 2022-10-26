@@ -1,5 +1,6 @@
 package org.globant.university.data;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,10 @@ public class Subject {
     private String classRoom;
     private List<Student> studentList;
     private Teacher teacher;
+
+    public Subject(){
+
+    }
 
     public Subject(String subjectName, String classRoom, Teacher teacher) {
         this.subjectName = subjectName;

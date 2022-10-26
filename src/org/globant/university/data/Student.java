@@ -5,6 +5,10 @@ public class Student {
     private String studentName;
     private int studentAge;
 
+    public Student(){
+
+    }
+
     public Student(String studentName, int studentAge) {
         this.studentId = (int)(Math.random() * 1000);
         this.studentName = studentName;

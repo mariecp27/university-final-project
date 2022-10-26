@@ -13,6 +13,11 @@ public class PartTimeTeacher extends Teacher{
     }
 
     public double calculateTeacherSalary(){
-        return super.baseSalary * this.weeklyActiveHours;
+        return super.actualSalary = super.baseSalary * this.weeklyActiveHours;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + super.getTeacherName() + "\nType: Part time teacher" +"\nWeekly active hours: " + this.getWeeklyActiveHours() + "\nSubjects in charge: ";
     }
 }
