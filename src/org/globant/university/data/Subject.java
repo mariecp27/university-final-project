@@ -33,12 +33,25 @@ public class Subject {
         return studentList;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public String getTeacherName() {
+        return teacher.getTeacherName();
     }
 
     public void addStudentToSubject(Student student){
         this.studentList.add(student);
     }
 
+    public String getStudentsPerSubject(){
+        String assignedStudents = "";
+        int counter = 1;
+        for (int i = 0; i < this.getStudentList().size(); i++) {
+            assignedStudents += "\n" + " " + counter  + ". " + studentList.get(i).getStudentName();
+            counter++;
+        }
+        return assignedStudents;
+    }
+
+    public String getSubjectInfo() {
+        return "Name: " + this.getSubjectName() + "\nClassroom: " + this.getClassRoom() + "\nTeacher in charge: " + this.getTeacherName() + "\nStudents in the course: " + this.getStudentsPerSubject();
+    }
 }
