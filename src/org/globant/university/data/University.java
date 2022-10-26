@@ -33,19 +33,27 @@ public class University {
     }
 
     public FullTimeTeacher registerFullTimeTeacher(String teacherName, float baseSalary, int experienceYears) {
-        return new FullTimeTeacher(teacherName, baseSalary, experienceYears);
+        FullTimeTeacher fullTimeTeacher = new FullTimeTeacher(teacherName, baseSalary, experienceYears);
+        this.addTeacher(fullTimeTeacher);
+        return fullTimeTeacher;
     }
 
     public PartTimeTeacher registerPartTimeTeacher(String teacherName, float baseSalary, float weeklyActiveHours) {
-        return new PartTimeTeacher(teacherName, baseSalary, weeklyActiveHours);
+        PartTimeTeacher partTimeTeacher = new PartTimeTeacher(teacherName, baseSalary, weeklyActiveHours);
+        this.addTeacher(partTimeTeacher);
+        return partTimeTeacher;
     }
 
     public Student registerStudent(String studentName, int studentAge){
-        return new Student(studentName, studentAge);
+        Student student = new Student(studentName, studentAge);
+        this.addStudent(student);
+        return student;
     }
 
     public Subject createSubject(String subjectName, String classRoom, Teacher teacher){
-        return new Subject(subjectName, classRoom, teacher);
+        Subject subject = new Subject(subjectName, classRoom, teacher);
+        this.addSubject(subject);
+        return subject;
     }
 
     public void addStudent(Student student){
@@ -65,11 +73,15 @@ public class University {
     }
 
     public Student getStudentByIndex(int index){
-        return studentList.get(index);
+        return this.studentList.get(index);
     }
 
     public Teacher getTeacherByIndex(int index){
-        return teacherList.get(index);
+        return this.teacherList.get(index);
+    }
+
+    public Subject getSubjectByIndex(int index){
+        return  this.subjectList.get(index);
     }
 
     public int getStudentsAmount(){
@@ -87,10 +99,10 @@ public class University {
     public String getSubjectsPerTeacher(int teacherIndex){
         String assignedSubjects = "";
         int counter = 1;
-        Teacher teacher = getTeacherByIndex(teacherIndex);
+        String teacherName = getTeacherByIndex(teacherIndex).getTeacherName();
         for (int i = 0; i < getSubjectsAmount(); i++) {
-            Teacher teacherFound = subjectList.get(i).getTeacher();
-            if (teacherFound == teacher){
+            String teacherFound = subjectList.get(i).getTeacherName();
+            if (teacherFound.equals(teacherName)){
                 assignedSubjects += "\n" + " " + counter  + ". " + subjectList.get(i).getSubjectName();
                 counter++;
             }
@@ -100,5 +112,13 @@ public class University {
 
     public String getTeachersInfo(int teacherIndex){
         return  this.getTeacherByIndex(teacherIndex).toString() + getSubjectsPerTeacher(teacherIndex);
+    }
+
+    public String getSubjectName(int subjectIndex){
+        return  this.getSubjectByIndex(subjectIndex).getSubjectName();
+    }
+
+    public String getSubjectsInfo(int subjectIndex){
+        return this.getSubjectByIndex(subjectIndex).getSubjectInfo();
     }
 }

@@ -26,4 +26,9 @@ public class Student {
     public int getStudentAge() {
         return studentAge;
     }
+
+    @Override
+    public String toString() {
+        return "ID: " + this.getStudentId() + " - Name: " + this.getStudentName() + " - Age: " + this.getStudentAge();
+    }
 }
