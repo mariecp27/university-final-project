@@ -103,7 +103,7 @@ public class University {
         for (int i = 0; i < getSubjectsAmount(); i++) {
             String teacherFound = subjectList.get(i).getTeacherName();
             if (teacherFound.equals(teacherName)){
-                assignedSubjects += "\n" + " " + counter  + ". " + subjectList.get(i).getSubjectName();
+                assignedSubjects += "\n" + " " + counter  + ". " + this.getSubjectName(i);
                 counter++;
             }
         }

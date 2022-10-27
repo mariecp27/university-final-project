@@ -77,13 +77,12 @@ public class Main {
             try {
                 subjectsMenuOption = scanner.nextInt();
             } catch (java.util.InputMismatchException e) {
-                System.out.println("Please enter a valid option: 1 - " + overSubjectsAmount);
                 subjectsMenuOption = 0;
             }
             scanner = new Scanner(System.in);
             if (subjectsMenuOption < overSubjectsAmount && subjectsMenuOption > 0) {
                 getSubjectsInfo(university, (subjectsMenuOption - 1));
-            } else if(subjectsMenuOption > overSubjectsAmount) {
+            } else if(subjectsMenuOption > overSubjectsAmount || subjectsMenuOption == 0) {
                 System.out.println("Please enter a valid option: 1 - " + overSubjectsAmount);
             }
             System.out.println();
@@ -108,28 +107,38 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String studentName;
         int studentAge = 0;
+        boolean continueProcedure = true;
 
-        System.out.println("Please enter the student full name:");
-        studentName = scanner.nextLine();
-        scanner = new Scanner(System.in);
+        do {
+            System.out.println("Please enter the student full name:");
+            studentName = scanner.nextLine();
+            scanner = new Scanner(System.in);
+            if (!checkIfSpecialCharacter(studentName)) {
+                continueProcedure = false;
+            } else {
+                System.out.println("The student name should not contain any number nor special characters");
+                System.out.println();
+            }
+        } while (continueProcedure);
 
-        if (!checkIfSpecialCharacter(studentName)){
+        continueProcedure = true;
+        do {
             System.out.println("Please enter the student age:");
             try {
                 studentAge = scanner.nextInt();
-                scanner = new Scanner(System.in);
-                if (studentAge < 0){
-                    System.out.println("Please enter a valid age");
-                } else {
-                    Student student = university.registerStudent(studentName, studentAge);
-                    getRegisterStudentInSubjectMenu(university, student);
-                }
             } catch (java.util.InputMismatchException e) {
-                System.out.println("Please enter a valid age");
+                studentAge = 0;
             }
-        } else {
-            System.out.println("The student name should not contain any number nor special characters");
-        }
+            scanner = new Scanner(System.in);
+            if (studentAge <= 0){
+                System.out.println("Please enter a valid age");
+                System.out.println();
+            } else {
+                Student student = university.registerStudent(studentName, studentAge);
+                getRegisterStudentInSubjectMenu(university, student);
+                continueProcedure = false;
+            }
+        } while (continueProcedure);
         System.out.println();
     }
 
@@ -137,24 +146,27 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int subjectsMenuOption = 0;
         int overSubjectsAmount = university.getSubjectsAmount() + 1;
+        boolean continueProcedure = true;
 
-        System.out.println("Which class do you want to register the student at?");
-        printSubjectList(university);
-        try {
-            subjectsMenuOption = scanner.nextInt();
-        } catch (java.util.InputMismatchException e) {
-            System.out.println("Please select a valid option: 1 - " + overSubjectsAmount);
-            System.out.println();
-        }
-        scanner = new Scanner(System.in);
-        if (subjectsMenuOption < overSubjectsAmount && subjectsMenuOption > 0) {
-            registerStudentInSubject(university, student, (subjectsMenuOption - 1));
-            String subjectName = university.getSubjectName(subjectsMenuOption - 1);
-            System.out.println("The student has been successfully registered in " + subjectName);
-        } else if(subjectsMenuOption > overSubjectsAmount) {
-            System.out.println("Please enter a valid option: 1 - " + overSubjectsAmount);
-            System.out.println();
-        }
+        do {
+            System.out.println("Which class do you want to register the student at?");
+            printSubjectList(university);
+            try {
+                subjectsMenuOption = scanner.nextInt();
+            } catch (java.util.InputMismatchException e) {
+                subjectsMenuOption = 0;
+            }
+            scanner = new Scanner(System.in);
+            if (subjectsMenuOption < overSubjectsAmount && subjectsMenuOption > 0) {
+                registerStudentInSubject(university, student, (subjectsMenuOption - 1));
+                String subjectName = university.getSubjectName(subjectsMenuOption - 1);
+                System.out.println("The student has been successfully registered in " + subjectName);
+                continueProcedure = false;
+            } else if(subjectsMenuOption > overSubjectsAmount || subjectsMenuOption == 0) {
+                System.out.println("Please enter a valid option: 1 - " + overSubjectsAmount);
+                System.out.println();
+            }
+        } while (continueProcedure);
     }
 
     public static void registerStudentInSubject(University university, Student student, int index){
