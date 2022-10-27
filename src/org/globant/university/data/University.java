@@ -50,8 +50,8 @@ public class University {
         return student;
     }
 
-    public Subject createSubject(String subjectName, String classRoom, Teacher teacher){
-        Subject subject = new Subject(subjectName, classRoom, teacher);
+    public Subject createSubject(String subjectName, String classroom, Teacher teacher){
+        Subject subject = new Subject(subjectName, classroom, teacher);
         this.addSubject(subject);
         return subject;
     }
@@ -70,6 +70,10 @@ public class University {
 
     public void addStudentToSubject(Subject subject,Student student){
         subject.addStudentToSubject(student);
+    }
+
+    public void assignTeacherToSubject(Subject subject, Teacher teacher){
+        subject.setTeacher(teacher);
     }
 
     public Student getStudentByIndex(int index){
@@ -111,7 +115,11 @@ public class University {
     }
 
     public String getTeachersInfo(int teacherIndex){
-        return  this.getTeacherByIndex(teacherIndex).toString() + getSubjectsPerTeacher(teacherIndex);
+        return this.getTeacherByIndex(teacherIndex).toString() + getSubjectsPerTeacher(teacherIndex);
+    }
+
+    public String getTeacherName(int teacherIndex){
+        return this.getTeacherByIndex(teacherIndex).getTeacherName();
     }
 
     public String getSubjectName(int subjectIndex){
@@ -120,5 +128,25 @@ public class University {
 
     public String getSubjectsInfo(int subjectIndex){
         return this.getSubjectByIndex(subjectIndex).getSubjectInfo();
+    }
+
+    public String getStudentName(int studentIndex){
+        return this.getStudentByIndex(studentIndex).getStudentName();
+    }
+
+    public Subject createTemporalSubject(String subjectName, String classroom){
+        Subject subject = new Subject(subjectName, classroom);
+        this.addSubject(subject);
+        return subject;
+    }
+
+    public boolean checkSubjectName(String subjectName){
+        boolean existingName = false;
+        for (int i = 0; i < this.getSubjectsAmount(); i++) {
+            if (this.getSubjectByIndex(i).getSubjectName().equals(subjectName)){
+                existingName = true;
+            }
+        }
+        return existingName;
     }
 }
