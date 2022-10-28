@@ -63,4 +63,14 @@ public class Subject {
     public String getSubjectInfo() {
         return "Name: " + this.getSubjectName() + "\nClassroom: " + this.getClassRoom() + "\nTeacher in charge: " + this.getTeacherName() + "\nStudents in the course: " + this.getStudentsPerSubject();
     }
+
+    public boolean verifyStudentInSubject(int studentId){
+        boolean isStudent = false;
+        for (int i = 0; i < this.getStudentList().size(); i++) {
+            if (this.getStudentList().get(i).getStudentId() == studentId) {
+                isStudent = true;
+            }
+        }
+        return isStudent;
+    }
 }

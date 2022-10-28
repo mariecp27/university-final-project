@@ -25,7 +25,7 @@ public class Main {
             System.out.println("2. Classes lists");
             System.out.println("3. Register a new student");
             System.out.println("4. Create a new class");
-            System.out.println("5. Are you one of our students? List your classes");
+            System.out.println("5. List classes per student");
             System.out.println("6. Exit");
 
             mainManuOption = scanner.nextLine();
@@ -45,6 +45,7 @@ public class Main {
                     createNewSubject(university);
                     break;
                 case "5":
+                    getSubjectsPerStudent(university);
                     break;
                 case "6":
                     System.out.println("Have a nice day!");
@@ -71,7 +72,7 @@ public class Main {
     public static void getSubjectsMenu(University university) {
         Scanner scanner = new Scanner(System.in);
         int overSubjectsAmount = university.getSubjectsAmount() + 1;
-        int subjectsMenuOption = 0;
+        int subjectsMenuOption;
         do {
             System.out.println("Which class information would you like to check today?");
             printSubjectList(university);
@@ -108,7 +109,7 @@ public class Main {
     public static void registerNewStudent(University university){
         Scanner scanner = new Scanner(System.in);
         String studentName;
-        int studentAge = 0;
+        int studentAge;
         boolean continueProcedure = true;
 
         do {
@@ -146,7 +147,7 @@ public class Main {
 
     public static void getRegisterStudentInSubjectMenu(University university, Student student){
         Scanner scanner = new Scanner(System.in);
-        int subjectsMenuOption = 0;
+        int subjectsMenuOption;
         int subjectsAmount = university.getSubjectsAmount();
         boolean continueProcedure = true;
 
@@ -204,7 +205,7 @@ public class Main {
 
     public static Teacher addTeacherToClass(University university){
         Scanner scanner = new Scanner(System.in);
-        int selectedTeacher = 0;
+        int selectedTeacher;
         int teachersAmount = university.getTeachersAmount();
         boolean continueProcedure = true;
 
@@ -240,7 +241,7 @@ public class Main {
 
     public static void addStudentsToClass(University university, Subject subject){
         Scanner scanner = new Scanner(System.in);
-        int selectedStudent = 0;
+        int selectedStudent;
         int overStudentsAmount = university.getStudentsAmount() + 1;
 
         do {
@@ -268,9 +269,37 @@ public class Main {
             System.out.println("Oh, at the moment, there are not registered students in our system");
         } else {
             for (int i = 0; i < university.getStudentsAmount(); i++) {
-                System.out.println((i + 1) + "." + university.getStudentName(i));
+                System.out.println((i + 1) + ". " + university.getStudentName(i));
             }
         }
+    }
+
+    public static void getSubjectsPerStudent(University university){
+        Scanner scanner = new Scanner(System.in);
+        int selectedStudent;
+        int overStudentsAmount = university.getStudentsAmount() + 1;
+
+        do {
+            System.out.println("Which student classes do you want to check?");
+            printStudentsName(university);
+            System.out.println(overStudentsAmount + ". Go back");
+            try {
+                selectedStudent = scanner.nextInt();
+            } catch (java.util.InputMismatchException e) {
+                selectedStudent = 0;
+            }
+            scanner = new Scanner(System.in);
+            if (selectedStudent < overStudentsAmount && selectedStudent > 0) {
+                System.out.println("The student " + university.getStudentName(selectedStudent - 1) + " is registered in:");
+                for (int i = 0; i < university.subjectsPerStudentAmount(selectedStudent - 1); i++) {
+                    System.out.println((i + 1) + ". "  + university.subjectsNamePerStudent(selectedStudent - 1, i));
+                }
+                System.out.println();
+            } else if(selectedStudent > overStudentsAmount || selectedStudent == 0) {
+                System.out.println("Please enter a valid option: 1 - " + overStudentsAmount);
+                System.out.println();
+            }
+        } while (selectedStudent != overStudentsAmount);
     }
 
     public static boolean checkIfSpecialCharacter(String word){

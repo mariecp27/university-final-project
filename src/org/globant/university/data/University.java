@@ -20,10 +20,6 @@ public class University {
         return universityName;
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
-    }
-
     public List<Teacher> getTeacherList() {
         return teacherList;
     }
@@ -148,5 +144,28 @@ public class University {
             }
         }
         return existingName;
+    }
+
+    public ArrayList<Subject> getSubjectsPerStudent(int studentIndex){
+        int studentId = this.getStudentId(studentIndex);
+        ArrayList subjectsPerStudent = new ArrayList<>();
+        for (int i = 0; i < this.getSubjectList().size(); i++) {
+            if(this.getSubjectList().get(i).verifyStudentInSubject(studentId)){
+                subjectsPerStudent.add(this.getSubjectList().get(i));
+            }
+        }
+        return subjectsPerStudent;
+    }
+
+    public int getStudentId(int studentIndex){
+        return this.getStudentByIndex(studentIndex).getStudentId();
+    }
+
+    public int subjectsPerStudentAmount(int studentIndex){
+        return this.getSubjectsPerStudent(studentIndex).size();
+    }
+
+    public String subjectsNamePerStudent(int studentIndex, int subjectIndex){
+        return this.getSubjectsPerStudent(studentIndex).get(subjectIndex).getSubjectName();
     }
 }
