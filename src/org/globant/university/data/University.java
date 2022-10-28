@@ -20,10 +20,6 @@ public class University {
         return universityName;
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
-    }
-
     public List<Teacher> getTeacherList() {
         return teacherList;
     }
@@ -50,8 +46,8 @@ public class University {
         return student;
     }
 
-    public Subject createSubject(String subjectName, String classRoom, Teacher teacher){
-        Subject subject = new Subject(subjectName, classRoom, teacher);
+    public Subject createSubject(String subjectName, String classroom, Teacher teacher){
+        Subject subject = new Subject(subjectName, classroom, teacher);
         this.addSubject(subject);
         return subject;
     }
@@ -70,6 +66,10 @@ public class University {
 
     public void addStudentToSubject(Subject subject,Student student){
         subject.addStudentToSubject(student);
+    }
+
+    public void assignTeacherToSubject(Subject subject, Teacher teacher){
+        subject.setTeacher(teacher);
     }
 
     public Student getStudentByIndex(int index){
@@ -103,7 +103,7 @@ public class University {
         for (int i = 0; i < getSubjectsAmount(); i++) {
             String teacherFound = subjectList.get(i).getTeacherName();
             if (teacherFound.equals(teacherName)){
-                assignedSubjects += "\n" + " " + counter  + ". " + subjectList.get(i).getSubjectName();
+                assignedSubjects += "\n" + " " + counter  + ". " + this.getSubjectName(i);
                 counter++;
             }
         }
@@ -111,7 +111,11 @@ public class University {
     }
 
     public String getTeachersInfo(int teacherIndex){
-        return  this.getTeacherByIndex(teacherIndex).toString() + getSubjectsPerTeacher(teacherIndex);
+        return this.getTeacherByIndex(teacherIndex).toString() + getSubjectsPerTeacher(teacherIndex);
+    }
+
+    public String getTeacherName(int teacherIndex){
+        return this.getTeacherByIndex(teacherIndex).getTeacherName();
     }
 
     public String getSubjectName(int subjectIndex){
@@ -120,5 +124,48 @@ public class University {
 
     public String getSubjectsInfo(int subjectIndex){
         return this.getSubjectByIndex(subjectIndex).getSubjectInfo();
+    }
+
+    public String getStudentName(int studentIndex){
+        return this.getStudentByIndex(studentIndex).getStudentName();
+    }
+
+    public Subject createTemporalSubject(String subjectName, String classroom){
+        Subject subject = new Subject(subjectName, classroom);
+        this.addSubject(subject);
+        return subject;
+    }
+
+    public boolean checkSubjectName(String subjectName){
+        boolean existingName = false;
+        for (int i = 0; i < this.getSubjectsAmount(); i++) {
+            if (this.getSubjectByIndex(i).getSubjectName().equals(subjectName)){
+                existingName = true;
+            }
+        }
+        return existingName;
+    }
+
+    public ArrayList<Subject> getSubjectsPerStudent(int studentIndex){
+        int studentId = this.getStudentId(studentIndex);
+        ArrayList subjectsPerStudent = new ArrayList<>();
+        for (int i = 0; i < this.getSubjectList().size(); i++) {
+            if(this.getSubjectList().get(i).verifyStudentInSubject(studentId)){
+                subjectsPerStudent.add(this.getSubjectList().get(i));
+            }
+        }
+        return subjectsPerStudent;
+    }
+
+    public int getStudentId(int studentIndex){
+        return this.getStudentByIndex(studentIndex).getStudentId();
+    }
+
+    public int subjectsPerStudentAmount(int studentIndex){
+        return this.getSubjectsPerStudent(studentIndex).size();
+    }
+
+    public String subjectsNamePerStudent(int studentIndex, int subjectIndex){
+        return this.getSubjectsPerStudent(studentIndex).get(subjectIndex).getSubjectName();
     }
 }

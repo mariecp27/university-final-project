@@ -3,7 +3,6 @@ package org.globant.university.data;
 public abstract class Teacher {
     protected String teacherName;
     protected double baseSalary;
-    protected double actualSalary;
 
     public Teacher(String teacherName, float baseSalary) {
         this.teacherName = teacherName;
