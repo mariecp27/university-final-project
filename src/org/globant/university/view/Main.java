@@ -6,6 +6,7 @@ import org.globant.university.data.Teacher;
 import org.globant.university.data.University;
 import org.globant.university.persistence.DataInitializer;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -194,7 +195,7 @@ public class Main {
             Subject subject = university.createTemporalSubject(subjectName, classroom);
             Teacher selectedTeacher = addTeacherToClass(university);
             university.assignTeacherToSubject(subject, selectedTeacher);
-            addStudentsToClass(university, subject);
+            addStudentsToSubject(university, subject);
             System.out.println("The class " + subjectName + " has been successfully created");
             System.out.println();
         } else {
@@ -239,7 +240,7 @@ public class Main {
         }
     }
 
-    public static void addStudentsToClass(University university, Subject subject){
+    public static void addStudentsToSubject(University university, Subject subject){
         Scanner scanner = new Scanner(System.in);
         int selectedStudent;
         int overStudentsAmount = university.getStudentsAmount() + 1;
@@ -250,14 +251,20 @@ public class Main {
             System.out.println(overStudentsAmount + ". I do not need to add more students");
             try {
                 selectedStudent = scanner.nextInt();
-            } catch (java.util.InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 selectedStudent = 0;
             }
             scanner = new Scanner(System.in);
             if (selectedStudent < overStudentsAmount && selectedStudent > 0) {
-                Student student = university.getStudentByIndex(selectedStudent - 1);
-                university.addStudentToSubject(subject, student);
-            } else if(selectedStudent > overStudentsAmount || selectedStudent == 0) {
+                if (university.verifyStudentInSubject(subject, selectedStudent - 1)) {
+                    System.out.println("The selected student is already registered in the subject");
+                    System.out.println();
+                } else {
+                    Student student = university.getStudentByIndex(selectedStudent - 1);
+                    university.addStudentToSubject(subject, student);
+                    System.out.println();
+                }
+            } else if(selectedStudent > overStudentsAmount || selectedStudent <= 0) {
                 System.out.println("Please enter a valid option: 1 - " + overStudentsAmount);
                 System.out.println();
             }
