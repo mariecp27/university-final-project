@@ -19,7 +19,7 @@ public class University {
         this.subjectList = new ArrayList<>();
     }
 
-    public String getUniversityName() {
+    public String getName() {
         return this.name;
     }
 
@@ -310,7 +310,7 @@ public class University {
      * @param studentIndex {@link org.globant.university.data.Student Student} position in the university students' list (array)
      * @return Amount of {@link org.globant.university.data.Subject Subject}s as a <em>int</em>.
      */
-    public int subjectsPerStudentAmount(int studentIndex) {
+    public int getSubjectsPerStudentAmount(int studentIndex) {
         return this.getSubjectsPerStudent(studentIndex).size();
     }
 
@@ -320,7 +320,7 @@ public class University {
      * @param subjectIndex {@link org.globant.university.data.Subject Subject} position in a {@link org.globant.university.data.Student Student}'s subjects list (array)
      * @return {@link org.globant.university.data.Subject Subject}'s name as a <em>String</em>.
      */
-    public String subjectsNamePerStudent(int studentIndex, int subjectIndex) {
+    public String getSubjectsNamePerStudent(int studentIndex, int subjectIndex) {
         return this.getSubjectsPerStudent(studentIndex).get(subjectIndex).getName();
     }
 }

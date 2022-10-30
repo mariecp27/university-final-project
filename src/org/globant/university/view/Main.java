@@ -17,7 +17,7 @@ public class Main {
 
         String mainManuOption;
 
-        System.out.println("Welcome to " + university.getUniversityName());
+        System.out.println("Welcome to " + university.getName());
         System.out.println("How can we help you today?");
 
         do {
@@ -368,8 +368,8 @@ public class Main {
             scanner = new Scanner(System.in);
             if (selectedStudent < overStudentsAmount && selectedStudent > 0) {
                 System.out.println("The student " + university.getStudentName(selectedStudent - 1) + " is registered in:");
-                for (int i = 0; i < university.subjectsPerStudentAmount(selectedStudent - 1); i++) {
-                    System.out.println((i + 1) + ". "  + university.subjectsNamePerStudent(selectedStudent - 1, i));
+                for (int i = 0; i < university.getSubjectsPerStudentAmount(selectedStudent - 1); i++) {
+                    System.out.println((i + 1) + ". "  + university.getSubjectsNamePerStudent(selectedStudent - 1, i));
                 }
                 System.out.println();
             } else if(selectedStudent > overStudentsAmount || selectedStudent <= 0) {
