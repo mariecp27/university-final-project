@@ -4,7 +4,26 @@ import org.globant.university.data.*;
 
 import java.util.List;
 
+/**
+ * Class to instantiate a {@link org.globant.university.data.University University} along with the initial information for:
+ * <ul>
+ *     <li>Full-time teachers</li>
+ *     <li>Part-time teachers</li>
+ *     <li>Students</li>
+ *     <li>Subjects</li>
+ * </ul>
+ */
 public class DataInitializer {
+    /**
+     * Method that allows instantiating a {@link org.globant.university.data.University University} long with the initial information for:
+     *  <ul>
+     *      <li>Full-time teachers</li>
+     *      <li>Part-time teachers</li>
+     *      <li>Students</li>
+     *      <li>Subjects</li>
+     *  </ul>
+     * @return {@link org.globant.university.data.University University} with all initial information
+     */
     public static University loadUniversity() {
         University university = new University("Globant University");
 
@@ -16,17 +35,29 @@ public class DataInitializer {
         return university;
     }
 
-    public static void loadFullTimeTeachers(University university){
+    /**
+     * Method for adding the initial full-time teachers' information.
+     * @param university From {@link org.globant.university.data.University University}
+     */
+    public static void loadFullTimeTeachers(University university) {
         university.registerFullTimeTeacher("Eduardo Perea", 2000000, 5);
         university.registerFullTimeTeacher("Liliana Restrepo", 5000000, 8);
     }
 
-    public static void loadPartTimeTeachers(University university){
+    /**
+     * Method for adding the initial part-time teachers' information.
+     * @param university From {@link org.globant.university.data.University University}
+     */
+    public static void loadPartTimeTeachers(University university) {
         university.registerPartTimeTeacher("Maria Lopez", 1500000, 48);
         university.registerPartTimeTeacher("Pedro Lopera", 2000000, 40);
     }
 
-    public static void loadStudents(University university){
+    /**
+     * Method for adding the initial students' information.
+     * @param university From {@link org.globant.university.data.University University}
+     */
+    public static void loadStudents(University university) {
         university.registerStudent("Joe Gonzalez", 20);
         university.registerStudent("Carlos Leal", 18);
         university.registerStudent("Emilio Navarro", 22);
@@ -35,7 +66,11 @@ public class DataInitializer {
         university.registerStudent("Felipe Rivas", 27);
     }
 
-    public static void loadSubjects(University university){
+    /**
+     * Method for adding the initial subjects' information.
+     * @param university From {@link org.globant.university.data.University University}
+     */
+    public static void loadSubjects(University university) {
         List<Teacher> teacherList = university.getTeacherList();
 
         Subject subject1 =  university.createSubject("Art", "R-001", teacherList.get(0));

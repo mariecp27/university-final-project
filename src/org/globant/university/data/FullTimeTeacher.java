@@ -1,6 +1,11 @@
 package org.globant.university.data;
 
-public class FullTimeTeacher extends Teacher{
+/**
+ * Class for the kind of teacher whose salary is calculated based on their experience years.
+ * <br/>
+ * It allows instantiating, accessing and updating all full-time teachers needed information.
+ */
+public class FullTimeTeacher extends Teacher {
     private int experienceYears;
 
     public FullTimeTeacher(String teacherName, float baseSalary, int experienceYears) {
@@ -9,15 +14,15 @@ public class FullTimeTeacher extends Teacher{
     }
 
     public int getExperienceYears() {
-        return experienceYears;
+        return this.experienceYears;
     }
 
-    public double calculateTeacherSalary(){
-        return super.baseSalary * 1.1 * this.experienceYears;
+    public double calculateTeacherSalary() {
+        return super.getBaseSalary() * 1.1 * this.getExperienceYears();
     }
 
     @Override
     public String toString() {
-        return "Name: " + super.getTeacherName() + "\nType: Full time teacher" +"\nExperience years: " + this.getExperienceYears() + "\nBase salary: " + super.getBaseSalary() + "\nActual salary: " + this.calculateTeacherSalary() + "\nSubjects in charge: ";
+        return "ID: " + super.getId() + "\nName: " + super.getName() + "\nType: Full time teacher" +"\nExperience years: " + this.getExperienceYears() + "\nBase salary: " + super.getBaseSalary() + "\nActual salary: " + this.calculateTeacherSalary() + "\nSubjects in charge: ";
     }
 }
